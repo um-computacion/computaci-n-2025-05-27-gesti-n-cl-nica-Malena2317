@@ -48,14 +48,13 @@ class Especialidad:
         # Tengo que armar la lista de días para el texto
         dias_formateados = []
         for dia in self.__dias:
-            dias_formateados.append(dia.capitalize()) # Pongo la primera letra en mayúscula para que quede mejor
+            dias_formateados.append(dia.capitalize())
 
         # Uno los días con comas y los meto en el formato final
         texto_dias = ", ".join(dias_formateados)
         return f"{self.__tipo} (Días: {texto_dias})"
 
-    # Esto es para que las especialidades se puedan comparar entre sí, por su nombre.
-    # Es útil para Medico para que no tenga especialidades duplicadas.
+    # Esto es para que las especialidades se puedan comparar entre sí, por su nombre para que no tenga especialidades duplicadas.
     def __eq__(self, other):
         if not isinstance(other, Especialidad): # Si no es una Especialidad, no se pueden comparar
             return NotImplemented
