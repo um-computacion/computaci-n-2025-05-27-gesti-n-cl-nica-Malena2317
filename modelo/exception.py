@@ -46,3 +46,45 @@ class DiasAtencionInvalidosError(EspecialidadError): # Hereda de la base de Espe
     "Error si los días de atención no son válidos o están vacíos."
     def __init__(self, mensaje="Días de atención inválidos: deben ser una lista no vacía de días válidos (lunes a domingo)."):
         super().__init__(mensaje)
+
+# --- Excepciones para la Clase Clinica ---
+
+class PacienteExistenteError(Exception):
+    "Error cuando se intenta agregar un paciente que ya está registrado."
+    def __init__(self, mensaje="¡Ups! Este paciente ya existe en el sistema."):
+        super().__init__(mensaje)
+
+class PacienteNoExisteError(Exception):
+    "Error cuando se busca un paciente que no está registrado."
+    def __init__(self, mensaje="¡Vaya! El paciente que buscas no está en nuestros registros."):
+        super().__init__(mensaje)
+
+class MedicoExistenteError(Exception):
+    "Error cuando se intenta agregar un médico que ya está registrado."
+    def __init__(self, mensaje="¡Uy! Este médico ya está registrado con esa matrícula."):
+        super().__init__(mensaje)
+
+class MedicoNoExisteError(Exception):
+    "Error cuando se busca un médico que no está registrado."
+    def __init__(self, mensaje="¡Lo siento! El médico que buscas no está registrado."):
+        super().__init__(mensaje)
+
+class TurnoDuplicadoError(Exception):
+    "Error cuando se intenta agendar un turno que ya existe para ese médico y fecha/hora."
+    def __init__(self, mensaje="¡Ya hay un turno agendado para ese médico en esa fecha y hora!"):
+        super().__init__(mensaje)
+
+class MedicoNoAtiendeEspecialidadError(Exception):
+    "Error cuando el médico no atiende la especialidad solicitada para un turno."
+    def __init__(self, mensaje="El médico no atiende la especialidad que solicitaste."):
+        super().__init__(mensaje)
+
+class MedicoNoTrabajaEseDiaError(Exception):
+    "Error cuando se intenta agendar un turno un día que el médico no trabaja."
+    def __init__(self, mensaje="El médico no trabaja el día de la semana para el turno solicitado."):
+        super().__init__(mensaje)
+
+class RecetaInvalidaError(Exception): # Aunque la clase Receta ya valida, Clinica podría tener un control extra.
+    "Error cuando los datos de una receta no son válidos (ej. lista de medicamentos vacía)."
+    def __init__(self, mensaje="No se puede emitir la receta: los datos son inválidos."):
+        super().__init__(mensaje)

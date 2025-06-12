@@ -63,3 +63,6 @@ class Especialidad:
     # Esto también es para que funcione bien en listas o sets, si lo uso.
     def __hash__(self):
         return hash(self.__tipo.lower())
+    
+    def obtener_dias_atencion(self):
+        return self.__dias_atencion

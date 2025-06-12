@@ -27,8 +27,10 @@ class Paciente:
         self.__fecha_nacimiento = fecha_nacimiento
 
     def obtener_dni(self):
-        # Acceder al atributo privado
         return self.__dni
+    
+    def obtener_nombre(self):
+        return self.__nombre
 
     def __str__(self):
         # Acceder a los atributos privados
