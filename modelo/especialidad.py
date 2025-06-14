@@ -6,7 +6,6 @@ class Especialidad:
     DIAS_VALIDOS_PARA_ATENCION = ["lunes", "martes", "miércoles", "miercoles", "jueves", "viernes", "sábado", "sabado", "domingo"]
 
     def __init__(self, tipo, dias_atencion):
-        # Defino mis atributos privados
         self.__tipo = ""
         self.__dias = []
 
@@ -65,4 +64,4 @@ class Especialidad:
         return hash(self.__tipo.lower())
     
     def obtener_dias_atencion(self):
-        return self.__dias_atencion
+        return self.__dias
