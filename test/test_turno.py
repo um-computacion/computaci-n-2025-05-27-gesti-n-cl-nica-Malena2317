@@ -70,19 +70,8 @@ class TestTurno(unittest.TestCase):
     def test_medico_atiende_especialidad_y_dia(self):
         turno_a_verificar = Turno(self.paciente_ejemplo, self.medico_soto, self.fecha_hora_lunes, "Pediatría")
         
-        # Diccionario para traducir el día de inglés a español en minúsculas
-        dias_ingles_a_espanol = {
-            "monday": "lunes",
-            "tuesday": "martes",
-            "wednesday": "miércoles",
-            "thursday": "jueves",
-            "friday": "viernes",
-            "saturday": "sábado",
-            "sunday": "domingo"
-        }
-        
-        dia_en_ingles = turno_a_verificar.obtener_fecha_hora().strftime("%A").lower()
-        dia_del_turno_str = dias_ingles_a_espanol[dia_en_ingles]
+        # Obtener el día directamente en español con la primera letra en mayúscula
+        dia_del_turno_str = turno_a_verificar.obtener_fecha_hora().strftime("%A").capitalize()
         
         especialidad_que_medico_atiende = turno_a_verificar.obtener_medico().obtener_especialidad_para_dia(dia_del_turno_str)
         

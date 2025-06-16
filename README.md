@@ -4,15 +4,62 @@
 ## 👤 Información del Alumno
 
 ### 📋 Datos Personales
-- **Nombre y Apellido**: [Completar con nombre y apellido]
+- **Nombre y Apellido**: [Melina Navarro]
 - **Ciclo Lectivo**: 2025
-- **Carrera**: [Completar con nombre de la carrera]
+- **Carrera**: [Ingenieria Informatica]
 
 ## ⏰ Información Importante sobre la Entrega
 
 ### 📅 Fechas Clave
 - **Fecha límite de entrega**: 17 de junio de 2025
 - **Fecha sugerida de entrega**: Semana del 10 de junio de 2025
+
+# 🏥 Sistema de Gestión de Clínica
+
+Este proyecto es un sistema orientado a objetos para gestionar pacientes, médicos, turnos, historias clínicas y recetas médicas.
+
+---
+
+## 🚀 Cómo ejecutar el sistema
+
+1. Asegurate de tener **Python 3** instalado.
+2. Cloná el repositorio o descargá los archivos.
+3. Abrí una terminal y ubicáte en la carpeta raíz del proyecto.
+4. Ejecutá el sistema con:
+
+```bash
+python3 main.py
+```
+
+---
+
+## 🧪 Cómo ejecutar las pruebas
+
+Desde la raíz del proyecto, ejecutá:
+
+```bash
+python3 -m unittest discover -s test
+```
+
+Esto correrá automáticamente todas las pruebas unitarias definidas en la carpeta `test`.
+
+---
+
+## 🧠 Explicación del diseño general
+
+El sistema está desarrollado de forma modular, utilizando programación orientada a objetos. Las clases están organizadas en carpetas según su responsabilidad:
+
+```plaintext
+📦 proyecto_clinica/
+├── modelo/         ← Contiene todas las clases del dominio (Paciente, Médico, Turno, Historia Clínica, Receta, etc.) y excepciones personalizadas
+├── cli/            ← Contiene la interfaz de línea de comandos (CLI)
+├── test/           ← Contiene las pruebas unitarias escritas con unittest
+└── main.py         ← Archivo principal que ejecuta la CLI del sistema
+```
+
+Cada componente está diseñado para cumplir una función específica dentro del sistema, facilitando su mantenimiento y escalabilidad.
+
+
 
 ### 📝 Consideraciones
 Se recomienda encarecidamente a los estudiantes:

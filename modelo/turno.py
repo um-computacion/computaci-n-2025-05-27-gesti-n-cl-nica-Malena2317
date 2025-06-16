@@ -1,7 +1,9 @@
 
 from datetime import datetime
 from modelo.paciente import Paciente 
-from modelo.medico import Medico     
+from modelo.medico import Medico 
+import locale
+locale.setlocale(locale.LC_TIME, 'C')    
 
 class Turno:
     def __init__(self, el_paciente, el_medico, fecha_y_hora, la_especialidad):
@@ -43,17 +45,7 @@ class Turno:
     
     def obtener_especialidad(self):
         # Día del turno (en inglés, lo convertimos a español)
-        dias_ingles_a_espanol = {
-            "Monday": "Lunes",
-            "Tuesday": "Martes",
-            "Wednesday": "Miércoles",
-            "Thursday": "Jueves",
-            "Friday": "Viernes",
-            "Saturday": "Sábado",
-            "Sunday": "Domingo"
-        }
-        dia_en_ingles = self.__fecha_hora.strftime("%A")
-        dia = dias_ingles_a_espanol[dia_en_ingles]
+        dia = self.__fecha_hora.strftime("%A").capitalize()
 
         # Verificamos si el médico atiende esa especialidad ese día
         if self.__medico.atiende_especialidad(self.__especialidad, dia):
