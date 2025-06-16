@@ -40,10 +40,26 @@ class Turno:
     def obtener_fecha_hora(self):
         # Devuelve el objeto datetime con la fecha y hora del turno.
         return self.__fecha_hora
-
+    
     def obtener_especialidad(self):
-        # Devuelve la especialidad que se agendó para este turno.
-        return self.__especialidad
+        # Día del turno (en inglés, lo convertimos a español)
+        dias_ingles_a_espanol = {
+            "Monday": "Lunes",
+            "Tuesday": "Martes",
+            "Wednesday": "Miércoles",
+            "Thursday": "Jueves",
+            "Friday": "Viernes",
+            "Saturday": "Sábado",
+            "Sunday": "Domingo"
+        }
+        dia_en_ingles = self.__fecha_hora.strftime("%A")
+        dia = dias_ingles_a_espanol[dia_en_ingles]
+
+        # Verificamos si el médico atiende esa especialidad ese día
+        if self.__medico.atiende_especialidad(self.__especialidad, dia):
+            return self.__especialidad
+
+
 
     # --- Método de Representación (__str__) ---
 

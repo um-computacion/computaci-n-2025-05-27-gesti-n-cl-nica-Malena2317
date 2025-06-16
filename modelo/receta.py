@@ -35,7 +35,9 @@ class Receta:
         
         self.__medicamentos = medicamentos_limpios 
         self.__fecha = datetime.now()
-
+    
+    def obtener_medicamentos(self):
+        return self.__medicamentos
 
     def __str__(self):
         # Esto es para que la receta se vea clara cuando la imprimo.

@@ -37,11 +37,17 @@ class Medico:
     def obtener_matricula(self):
         return self.__matricula
 
-    def obtener_especialidades(self):
 
-        return self.__especialidades[:]
+    def atiende_especialidad(self, especialidad_nombre, dia):
+        dia = dia.lower()
+        especialidad_nombre = especialidad_nombre.lower()
 
-    # Método para agregar más especialidades
+        for esp in self.__especialidades:
+            if (esp.obtener_tipo().lower() == especialidad_nombre and
+                dia in [d.lower() for d in esp.obtener_dias_atencion()]):
+                return True
+        return False
+
     def agregar_especialidad(self, nueva_especialidad):
         # Valido que sea una Especialidad
         if not isinstance(nueva_especialidad, Especialidad):
@@ -52,6 +58,10 @@ class Medico:
             raise EspecialidadDuplicadaError(f"El médico ya tiene la especialidad '{nueva_especialidad.obtener_tipo()}'.")
         
         self.__especialidades.append(nueva_especialidad) # La agrego si no está
+    
+    def obtener_especialidad(self):
+        return self.__especialidades
+
 
     def obtener_especialidad_para_dia(self, dia):
         # Busco si el médico atiende alguna especialidad un día específico

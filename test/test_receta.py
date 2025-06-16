@@ -5,7 +5,7 @@ from modelo.receta import Receta
 from modelo.paciente import Paciente 
 from modelo.medico import Medico
 from modelo.especialidad import Especialidad 
-from modelo.exception import ( NombreInvalidoError, MatriculaInvalidaError, EspecialidadVaciaError,TypeError,  ValueError)
+from modelo.exception import ( NombreInvalidoError, MatriculaInvalidaError, EspecialidadVaciaError)
 
 class TestReceta(unittest.TestCase):
 
@@ -13,7 +13,8 @@ class TestReceta(unittest.TestCase):
 
         self.especialidad_general = Especialidad("Medicina General", ["lunes", "miércoles"])
 
-        self.paciente_valido = Paciente("Sofia Ramos", "40567890")
+
+        self.paciente_valido = Paciente("Sofia Ramos", "40567890", "12/06/1995")
 
         self.medico_valido = Medico("Dra. Laura Flores", "MP23456", [self.especialidad_general])
 

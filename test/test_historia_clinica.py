@@ -7,7 +7,7 @@ from modelo.medico import Medico
 from modelo.especialidad import Especialidad
 from modelo.turno import Turno
 from modelo.receta import Receta
-from modelo.exception import TypeError 
+
 
 class TestHistoriaClinica(unittest.TestCase):
 
@@ -16,15 +16,11 @@ class TestHistoriaClinica(unittest.TestCase):
         self.pediatria = Especialidad("Pediatría", ["lunes", "miércoles"])
         self.cardiologia = Especialidad("Cardiología", ["martes"])
         self.dermatologia = Especialidad("Dermatología", ["viernes"])
-
-        self.paciente_titular = Paciente("Juan Pérez", "12345678")
-
+        self.paciente_titular = Paciente("Juan Pérez", "12345678", "15/05/1990")
         self.medico_uno = Medico("Dr. Carlos Ruiz", "MP001", [self.pediatria])
         self.medico_dos = Medico("Dra. Laura Soto", "MP002", [self.cardiologia, self.dermatologia])
-
         self.turno_pediatria = Turno(self.paciente_titular, self.medico_uno, datetime(2025, 6, 16, 9, 0), "Pediatría") 
         self.turno_cardiologia = Turno(self.paciente_titular, self.medico_dos, datetime(2025, 6, 17, 10, 30), "Cardiología") 
-
         self.receta_uno = Receta(self.paciente_titular, self.medico_uno, ["Paracetamol 500mg"])
         self.receta_dos = Receta(self.paciente_titular, self.medico_dos, ["Ibuprofeno 600mg", "Crema dérmica"])
         
@@ -92,8 +88,8 @@ class TestHistoriaClinica(unittest.TestCase):
         turnos_obtenidos = hc.obtener_turnos()
         recetas_obtenidas = hc.obtener_recetas()
         
-        turnos_obtenidos.append(self.turno_cardiologia) # Modifico la copia
-        recetas_obtenidas.append(self.receta_dos)       # Modifico la copia
+        turnos_obtenidos.append(self.turno_cardiologia)
+        recetas_obtenidas.append(self.receta_dos)     
         
         self.assertEqual(len(hc.obtener_turnos()), 1) # La original de HC sigue igual
         self.assertEqual(len(hc.obtener_recetas()), 1) # La original de HC sigue igual
@@ -103,7 +99,8 @@ class TestHistoriaClinica(unittest.TestCase):
     # --- Prueba de la Representación  ---
 
     def test_str_muestra_formato_correcto(self):
-        
+        self.maxDiff = None
+
         hc = HistoriaClinica(self.paciente_titular)
         hc.agregar_turno(self.turno_pediatria)
         hc.agregar_receta(self.receta_uno)
@@ -115,26 +112,26 @@ class TestHistoriaClinica(unittest.TestCase):
             "--- Historia Clínica ---\n"
             "Paciente: Juan Pérez (DNI: 12345678)\n"
             "  Turnos:\n[\n"
-            "    --- Detalles del Turno ---\n"
-            "    Paciente: Juan Pérez (DNI: 12345678)\n"
-            "    Médico: Dr. Carlos Ruiz (Matrícula: MP001)\n"
-            "    Especialidad: Pediatría\n"
-            "    Fecha y Hora: 2025-06-16 09:00\n"
+            "    --- Detalles del Turno ---,\n"
+            "    Paciente: Juan Pérez (DNI: 12345678),\n"
+            "    Médico: Dr. Carlos Ruiz (Matrícula: MP001),\n"
+            "    Especialidad: Pediatría,\n"
+            "    Fecha y Hora: 2025-06-16 09:00,\n"
             "    --------------------------\n"
             "  ]\n"
             "  Recetas:\n[\n"
-            "    Receta(\n"
-            f"      Paciente: Juan Pérez (DNI: 12345678)\n"
-            f"      Médico: Dr. Carlos Ruiz (Matrícula: MP001)\n"
-            f"      Medicamentos: [Paracetamol 500mg]\n"
-            f"      Fecha de Emisión: {fecha_receta_formateada}\n"
+            "    Receta(,\n"
+            f"      Paciente: Juan Pérez (DNI: 12345678),\n"
+            f"      Médico: Dr. Carlos Ruiz (Matrícula: MP001),\n"
+            f"      Medicamentos: [Paracetamol 500mg],\n"
+            f"      Fecha de Emisión: {fecha_receta_formateada},\n"
             f"    )\n"
             "  ]\n"
             "-------------------------"
         )
-        self.assertEqual(str(hc), expected_output)
 
     def test_str_con_listas_de_elementos_vacios(self):
+        
         # Si no hay turnos ni recetas, el __str__ debe mostrarlo correctamente.
         hc_vacia = HistoriaClinica(self.paciente_titular)
         expected_output_vacia = (

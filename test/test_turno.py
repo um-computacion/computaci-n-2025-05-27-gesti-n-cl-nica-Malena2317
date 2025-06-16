@@ -1,10 +1,10 @@
 import unittest
-from datetime import datetime 
+from datetime import datetime, date
 from modelo.turno import Turno
 from modelo.paciente import Paciente 
 from modelo.medico import Medico
 from modelo.especialidad import Especialidad 
-from modelo.exception import ( NombreInvalidoError, MatriculaInvalidaError, EspecialidadVaciaError,TypeError,  ValueError)
+from modelo.exception import ( NombreInvalidoError, MatriculaInvalidaError, EspecialidadVaciaError,)
 
 class TestTurno(unittest.TestCase):
 
@@ -13,7 +13,7 @@ class TestTurno(unittest.TestCase):
         self.cardiologia = Especialidad("Cardiología", ["martes", "jueves"])
         self.dermatologia = Especialidad("Dermatología", ["viernes"])
 
-        self.paciente_ejemplo = Paciente("Julia Fernández", "35789012")
+        self.paciente_ejemplo = Paciente("Julia Fernández", "35789012", "15/05/1990")
 
         # Médicos de prueba
         self.medico_soto = Medico("Dr. Adrián Soto", "MP98765", [self.pediatria, self.cardiologia])
@@ -68,12 +68,26 @@ class TestTurno(unittest.TestCase):
 
 
     def test_medico_atiende_especialidad_y_dia(self):
-
         turno_a_verificar = Turno(self.paciente_ejemplo, self.medico_soto, self.fecha_hora_lunes, "Pediatría")
-        dia_del_turno_str = turno_a_verificar.obtener_fecha_hora().strftime("%A").lower()
+        
+        # Diccionario para traducir el día de inglés a español en minúsculas
+        dias_ingles_a_espanol = {
+            "monday": "lunes",
+            "tuesday": "martes",
+            "wednesday": "miércoles",
+            "thursday": "jueves",
+            "friday": "viernes",
+            "saturday": "sábado",
+            "sunday": "domingo"
+        }
+        
+        dia_en_ingles = turno_a_verificar.obtener_fecha_hora().strftime("%A").lower()
+        dia_del_turno_str = dias_ingles_a_espanol[dia_en_ingles]
+        
         especialidad_que_medico_atiende = turno_a_verificar.obtener_medico().obtener_especialidad_para_dia(dia_del_turno_str)
-        self.assertEqual(especialidad_que_medico_atiende, "Pediatría") # El médico atiende la especialidad
-        self.assertEqual(especialidad_que_medico_atiende, turno_a_verificar.obtener_especialidad()) # Y coincide con el turno
+        
+        self.assertEqual(especialidad_que_medico_atiende, "Pediatría")  # El médico atiende la especialidad
+        self.assertEqual(especialidad_que_medico_atiende, turno_a_verificar.obtener_especialidad())  # Y coincide con el turno
 
     def test_medico_no_atiende_especialidad_o_dia(self):
         
